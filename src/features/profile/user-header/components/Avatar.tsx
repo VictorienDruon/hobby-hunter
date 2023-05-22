@@ -29,8 +29,8 @@ const getInitials = (name: string) => {
 
 const Avatar = ({ name, image }: AvatarProps) => {
 	return (
-		<AvatarWrapper className="h-20 w-20 bg-background p-1 md:h-28 md:w-28 lg:h-36 lg:w-36">
-			<AvatarImage src={image} />
+		<AvatarWrapper className="h-20 w-20 border-4 border-background bg-background md:h-28 md:w-28 lg:h-36 lg:w-36">
+			<AvatarImage className="object-cover" src={image} />
 			<AvatarFallback className="select-none text-2xl tracking-widest md:text-3xl lg:text-4xl">
 				{getInitials(name)}
 			</AvatarFallback>

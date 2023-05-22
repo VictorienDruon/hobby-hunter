@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import Avatar from "@/components/profile/Avatar";
+import Avatar from "./components/Avatar";
 
 interface UserHeaderProps {
 	isOwner: boolean;

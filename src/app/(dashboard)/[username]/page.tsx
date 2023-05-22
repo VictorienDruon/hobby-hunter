@@ -1,5 +1,5 @@
-import Profile from "@/components/profile/Profile";
-import { User } from "@/interfaces/User";
+import { User } from "@/types/User";
+import Profile from "@/features/profile";
 
 interface ProfilePageProps {
 	params: { username: string };
@@ -11,7 +11,6 @@ const ProfilePage = ({ params }: ProfilePageProps) => {
 		name: "John Doe",
 		username: "johndoe",
 		image: "https://avatars.githubusercontent.com/u/124599?v=4",
-		banner: "https://avatars.githubusercontent.com/u/124599?v=4",
 		infos: {
 			bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
 			location: "Earth",
