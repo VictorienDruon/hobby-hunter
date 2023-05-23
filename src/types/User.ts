@@ -1,3 +1,5 @@
+import { Theme } from "@/features/profile/banner/themes";
+
 export interface User {
 	name: string;
 	username: string;
@@ -6,13 +8,14 @@ export interface User {
 }
 
 export interface UserInfos {
-	bio?: string;
-	job?: string;
-	location?: string;
-	website?: string;
-	twitter?: string;
-	github?: string;
 	joinedIn: string;
 	following: number;
 	follower: number;
+	job: string;
+	bio: string;
+	location: string;
+	website: string;
+	twitter: string;
+	github: string;
+	theme: Theme;
 }

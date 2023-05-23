@@ -2,9 +2,9 @@ import Title from "./components/Title";
 import Providers from "./components/providers";
 import UserAgreement from "./components/UserAgreement";
 
-const Form = () => {
+const SignInForm = () => {
 	return (
-		<div className="flex flex-col justify-between p-12">
+		<div className="flex flex-col gap-40 p-12 md:justify-between">
 			<Title />
 			<Providers />
 			<UserAgreement />
@@ -12,4 +12,4 @@ const Form = () => {
 	);
 };
 
-export default Form;
+export default SignInForm;

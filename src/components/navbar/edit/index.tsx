@@ -14,7 +14,7 @@ const Navbar = () => {
 						size: "sm",
 					})} flex items-center gap-1 md:p-5`}
 				>
-					<Icons.arrow className="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5" />
+					<Icons.arrow className="h-5 w-5" />
 					<p className="hidden sm:block">Back</p>
 				</Link>
 				<ModeToggle />
