@@ -16,7 +16,7 @@ const UserHeader = ({ isOwner, name, image }: UserHeaderProps) => {
 				<Link href="/edit">
 					<Button
 						variant="outline"
-						className="rounded-3xl px-4 md:px-8 lg:px-12"
+						className="rounded-3xl px-6 md:px-10 lg:px-14"
 						size="sm"
 					>
 						Edit

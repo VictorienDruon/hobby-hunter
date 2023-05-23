@@ -12,16 +12,16 @@ const ProfilePage = ({ params }: ProfilePageProps) => {
 		username: "johndoe",
 		image: "https://avatars.githubusercontent.com/u/124599?v=4",
 		infos: {
-			job: "",
 			joinedIn: "May 2023",
 			following: 4,
 			follower: 2,
-			bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
+			job: "",
+			bio: "ouais c'est greg",
 			location: "Earth",
 			website: "https://lorem.ipsum.com",
 			twitter: "john_doe",
 			github: "JohnDoe",
-			theme: "blue",
+			theme: "pink",
 		},
 	};
 

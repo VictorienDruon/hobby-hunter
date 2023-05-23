@@ -22,7 +22,7 @@ const Themes = ({ control }: { control: any }) => {
 					<RadioGroup
 						onValueChange={field.onChange}
 						defaultValue={field.value}
-						className="flex flex-wrap gap-x-8 gap-y-2"
+						className="inline-grid w-full grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-9 gap-2"
 					>
 						{Object.entries(themes).map(([name, theme]) => (
 							<Theme key={name} name={name} theme={theme} />
