@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 const Settings = () => {
 	return (
-		<div className="mt-32 flex justify-end gap-4">
+		<div className="flex justify-end gap-4">
 			<Button
 				variant="outline"
 				size="sm"

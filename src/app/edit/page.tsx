@@ -6,6 +6,7 @@ const EditPage = () => {
 		name: "John Doe",
 		username: "johndoe",
 		image: "https://avatars.githubusercontent.com/u/124599?v=4",
+		musics: [],
 		infos: {
 			joinedIn: "May 2023",
 			following: 4,
