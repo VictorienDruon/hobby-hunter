@@ -1,7 +1,8 @@
 "use client";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { edit, EditFormData } from "@/lib/schema";
+import { EditFormData } from "@/utils/schema";
 import { Form } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
 import Field from "./components/Field";

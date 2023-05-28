@@ -1,4 +1,4 @@
-import { capitalizeFirstLetter } from "@/lib/helpers";
+import { capitalizeFirstLetter } from "@/utils/text";
 import {
 	FormField,
 	FormItem,

@@ -13,7 +13,7 @@ interface ProfileProps {
 }
 
 const Profile = ({ isOwner, user }: ProfileProps) => {
-	const { name, username, image, infos, musics } = user;
+	const { name, username, image, following, followers, infos, musics } = user;
 
 	return (
 		<>
@@ -22,7 +22,7 @@ const Profile = ({ isOwner, user }: ProfileProps) => {
 				<div className="flex flex-col gap-1 md:gap-3 lg:gap-5">
 					<UserHeader isOwner={isOwner} name={name} image={image} />
 					<UserName name={name} username={username} />
-					<UserInfo infos={infos} />
+					<UserInfo following={following} followers={followers} infos={infos} />
 					<Separator className="my-4" />
 				</div>
 				<div className="flex w-full flex-col items-center gap-4 md:gap-6 lg:gap-8">

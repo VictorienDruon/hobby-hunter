@@ -1,7 +1,8 @@
 "use client";
 
-import { Toaster } from "@/components/ui/toaster";
+import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
+import { Toaster } from "@/components/ui/toaster";
 
 interface ProvidersProps {
 	children: React.ReactNode;
@@ -9,10 +10,12 @@ interface ProvidersProps {
 
 const providers = ({ children }: ProvidersProps) => {
 	return (
-		<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-			{children}
-			<Toaster />
-		</ThemeProvider>
+		<SessionProvider>
+			<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+				{children}
+				<Toaster />
+			</ThemeProvider>
+		</SessionProvider>
 	);
 };
 

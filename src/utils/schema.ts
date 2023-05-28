@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export type EditFormData = z.infer<typeof edit>;
 
-export const edit = z.object({
+export const EditFormData = z.object({
 	name: z.string().min(2, "Too short").max(20, "Too long"),
 	job: z.string().max(15, "Too long").optional(),
 	bio: z.string().max(100, "Too long").optional(),

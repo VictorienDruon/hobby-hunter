@@ -5,14 +5,14 @@ export interface User {
 	name: string;
 	username: string;
 	image: string;
+	following: number;
+	followers: number;
 	infos: UserInfos;
 	musics: Music[];
 }
 
 export interface UserInfos {
 	joinedIn: string;
-	following: number;
-	follower: number;
 	job: string;
 	bio: string;
 	location: string;

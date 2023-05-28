@@ -1,9 +1,9 @@
 interface FollowsProps {
 	following: number;
-	follower: number;
+	followers: number;
 }
 
-const Follows = ({ following, follower }: FollowsProps) => {
+const Follows = ({ following, followers }: FollowsProps) => {
 	return (
 		<div className="flex gap-3 text-muted-foreground">
 			<p>
@@ -11,8 +11,8 @@ const Follows = ({ following, follower }: FollowsProps) => {
 				Following
 			</p>
 			<p>
-				<strong className="text-foreground">{follower}</strong>{" "}
-				{follower > 1 ? "Followers" : "Follower"}
+				<strong className="text-foreground">{followers}</strong>{" "}
+				{followers > 1 ? "Followers" : "Follower"}
 			</p>
 		</div>
 	);
