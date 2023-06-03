@@ -1,3 +1,4 @@
+import { useFormContext } from "react-hook-form";
 import { capitalizeFirstLetter } from "@/utils/text";
 import {
 	FormField,
@@ -12,13 +13,13 @@ import { Textarea } from "@/components/ui/textarea";
 interface FieldProps {
 	name: string;
 	placeholder: string;
-	form: any;
 }
 
-const Field = ({ name, placeholder, form }: FieldProps) => {
+const Field = ({ name, placeholder }: FieldProps) => {
+	const { control, register } = useFormContext();
 	return (
 		<FormField
-			control={form.control}
+			control={control}
 			name={name}
 			render={() => (
 				<FormItem className="w-full">
@@ -27,13 +28,13 @@ const Field = ({ name, placeholder, form }: FieldProps) => {
 						{name !== "bio" ? (
 							<Input
 								placeholder={placeholder}
-								{...form.register(name)}
+								{...register(name)}
 							/>
 						) : (
 							<Textarea
 								placeholder={placeholder}
 								className="resize-none"
-								{...form.register(name)}
+								{...register(name)}
 							/>
 						)}
 					</FormControl>

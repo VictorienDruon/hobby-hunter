@@ -9,7 +9,7 @@ const UserName = ({ name, username }: UserNameProps) => {
 			<h1 className="text-xl font-bold leading-tight md:text-2xl lg:text-3xl">
 				{name}
 			</h1>
-			<h2 className="text-md text-muted-foreground md:text-lg lg:text-xl">
+			<h2 className="text-sm text-muted-foreground md:text-lg lg:text-xl">
 				@{username}
 			</h2>
 		</div>

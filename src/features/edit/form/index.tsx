@@ -5,88 +5,82 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EditFormData } from "@/utils/schema";
 import { Form } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
-import Field from "./components/Field";
 import { Button } from "@/components/ui/button";
+import Field from "./components/Field";
+import { UserInfos } from "@prisma/client";
 import Themes from "./components/Themes";
-import { User } from "@/types/User";
+import { Theme } from "@/features/profile/banner/themes";
 
-const EditForm = ({ user }: { user: User }) => {
-	const { name, infos } = user;
-
+const EditForm = ({ userInfos }: { userInfos: UserInfos }) => {
 	const defaultValues: Partial<EditFormData> = {
-		name: name,
-		job: infos.job,
-		bio: infos.bio,
-		location: infos.location,
-		website: infos.website,
-		twitter: infos.twitter,
-		theme: infos.theme,
+		job: userInfos.job ?? undefined,
+		location: userInfos.location ?? undefined,
+		bio: userInfos.bio ?? undefined,
+		website: userInfos.website ?? undefined,
+		twitter: userInfos.twitter ?? undefined,
+		github: userInfos.github ?? undefined,
+		theme: userInfos.theme as Theme,
 	};
 
 	const form = useForm<EditFormData>({
-		resolver: zodResolver(edit),
+		resolver: zodResolver(EditFormData),
 		defaultValues,
 		mode: "onChange",
 	});
 
-	const onSubmit = (data: EditFormData) => {
-		toast({
-			title: "You submitted the following values:",
-			description: (
-				<pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
+	const onSubmit = async (data: EditFormData) => {
+		const update = await fetch("/api/update", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
 		});
+		const res = await update.json();
+		if (res.error) {
+			toast({
+				variant: "destructive",
+				title: "Uh oh! Something went wrong.",
+				description: "An error occured, please try again later",
+			});
+		} else {
+			toast({
+				title: "Success!",
+				description: "Your profile has been updated",
+			});
+		}
 	};
 
 	return (
 		<div className="flex justify-center">
-		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full max-w-[1200px]">
-				<Field name="name" placeholder="John Doe" form={form} />
+			<Form {...form}>
+				<form
+					onSubmit={form.handleSubmit(onSubmit)}
+					className="w-full max-w-[1200px] space-y-8"
+				>
+					<div className="flex w-full flex-col justify-between gap-8 sm:flex-row">
+						<Field name="job" placeholder="Software Engineer" />
 
-				<Field
-					name="bio"
-					placeholder="Tell us about yourself..."
-					form={form}
-				/>
+						<Field name="location" placeholder="Paris, France" />
+					</div>
 
-				<div className="flex w-full flex-col justify-between gap-8 sm:flex-row">
-					<Field
-						name="job"
-						placeholder="Software Engineer"
-						form={form}
-					/>
+					<Field name="bio" placeholder="Tell us about yourself..." />
 
-					<Field
-						name="location"
-						placeholder="Paris, France"
-						form={form}
-					/>
-				</div>
+					<Field name="website" placeholder="https://john-doe.com" />
 
-				<Field
-					name="website"
-					placeholder="https://john-doe.com"
-					form={form}
-				/>
+					<div className="flex w-full flex-col justify-between gap-8 sm:flex-row">
+						<Field name="twitter" placeholder="JohnDoe" />
 
-				<div className="flex w-full flex-col justify-between gap-8 sm:flex-row">
-					<Field name="twitter" placeholder="JohnDoe" form={form} />
+						<Field name="github" placeholder="john_doe" />
+					</div>
 
-					<Field name="github" placeholder="john_doe" form={form} />
-				</div>
+					<Themes control={form.control} />
 
-				<Themes control={form.control} />
-
-				<div className="flex w-full justify-end">
-					<Button type="submit">Save Changes</Button>
-				</div>
-			</form>
-		</Form>
+					<div className="flex w-full justify-end">
+						<Button type="submit">Save Changes</Button>
+					</div>
+				</form>
+			</Form>
 		</div>
 	);
 };

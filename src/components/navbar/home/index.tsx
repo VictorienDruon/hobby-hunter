@@ -1,16 +1,16 @@
-import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
-import { Icons } from "@/components/ui/icons";
 import { siteConfig } from "@/config/site";
+import { buttonVariants } from "@/components/ui/button";
+import { Icons } from "@/components/ui/icons";
 import ModeToggle from "@/components/navbar/ModeToggle";
 
-const Navbar = () => {
+const Navbar = ({ username }: { username?: string | null }) => {
 	return (
 		<nav className="sticky top-0 z-10 border-b bg-white bg-opacity-80 px-4 backdrop-blur-md dark:bg-black dark:bg-opacity-60">
 			<div className="flex w-full items-center justify-between gap-2 p-1 sm:p-2">
 				<Link href="/" className="flex items-center space-x-4">
 					<Icons.logo className="h-6 w-6 md:h-7 md:w-7" />
-					<p className="text-md font-bold lg:text-xl">
+					<p className="text-sm font-bold lg:text-xl">
 						{siteConfig.name}
 					</p>
 				</Link>
@@ -33,14 +33,26 @@ const Navbar = () => {
 							</div>
 						</Link>
 						<ModeToggle />
-						<Link
-							href={"/signin"}
-							className={`${buttonVariants({
-								size: "sm",
-							})} sm:px-6 sm:py-3 md:px-8 md:py-5`}
-						>
-							Sign In
-						</Link>
+						{!username ? (
+							<Link
+								href={"/signin"}
+								className={`${buttonVariants({
+									size: "sm",
+								})} sm:px-6 sm:py-3 md:px-8 md:py-5`}
+							>
+								Sign In
+							</Link>
+						) : (
+							<Link
+								href={"/" + username}
+								className={`${buttonVariants({
+									variant: "outline",
+									size: "sm",
+								})} sm:px-6 sm:py-3 md:px-8 md:py-5`}
+							>
+								Account
+							</Link>
+						)}
 					</nav>
 				</div>
 			</div>

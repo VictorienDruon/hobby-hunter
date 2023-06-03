@@ -10,12 +10,10 @@ interface ProvidersProps {
 
 const providers = ({ children }: ProvidersProps) => {
 	return (
-		<SessionProvider>
-			<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-				{children}
-				<Toaster />
-			</ThemeProvider>
-		</SessionProvider>
+		<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+			<SessionProvider>{children}</SessionProvider>
+			<Toaster />
+		</ThemeProvider>
 	);
 };
 

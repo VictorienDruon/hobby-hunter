@@ -1,67 +1,32 @@
-import { User } from "@/types/User";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { prisma } from "@/lib";
 import Profile from "@/features/profile";
 
 interface ProfilePageProps {
 	params: { username: string };
 }
 
-const ProfilePage = ({ params }: ProfilePageProps) => {
-	const isOwner = true;
-	const user: User = {
-		name: "John Doe",
-		username: "johndoe",
-		image: "https://avatars.githubusercontent.com/u/124599?v=4",
-		following: 4,
-		followers: 2,
-		infos: {
-			joinedIn: "May 2023",
-			job: "",
-			bio: "ouais c'est greg",
-			location: "Earth",
-			website: "https://lorem.ipsum.com",
-			twitter: "john_doe",
-			github: "JohnDoe",
-			theme: "pink",
+const getUser = async (username: string) => {
+	const user = await prisma.user.findUnique({
+		where: {
+			username: username,
 		},
-		musics: [
-			{
-				id: "1",
-				name: "name 1",
-				artist: "artist 1",
-				image: "/tyler.jpeg",
+		include: {
+			_count: {
+				select: { followers: true, following: true },
 			},
-			{
-				id: "2",
-				name: "name 2",
-				artist: "artist 2",
-				image: "/tyler.jpeg",
-			},
-			{
-				id: "3",
-				name: "name 3",
-				artist: "artist 3",
-				image: "/tyler.jpeg",
-			},
-			{
-				id: "4",
-				name: "name 4",
-				artist: "artist 4",
-				image: "/tyler.jpeg",
-			},
-			{
-				id: "5",
-				name: "name 5",
-				artist: "artist 5",
-				image: "/tyler.jpeg",
-			},
-			{
-				id: "6",
-				name: "name 6",
-				artist: "artist 6",
-				image: "/tyler.jpeg",
-			},
-		],
-	};
+			infos: true,
+		},
+	});
+	if (!user) throw new Error("User not found");
+	return user;
+};
+
+const ProfilePage = async ({ params }: ProfilePageProps) => {
+	const session = await getServerSession(authOptions);
+	const isOwner = session?.user?.name === params.username;
+	const user = await getUser(params.username);
 
 	return <Profile isOwner={isOwner} user={user} />;
 };

@@ -20,6 +20,7 @@ const Spotify = () => {
 					src="/providers/spotify.png"
 					alt="spotify"
 					fill={true}
+					sizes="10vw"
 					className="object-contain"
 					draggable={false}
 				/>

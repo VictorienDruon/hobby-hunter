@@ -1,20 +1,27 @@
 import Follows from "./components/Follows";
 import Details from "./components/Details";
-import { UserInfos } from "@/types/User";
+import { UserInfos } from "@prisma/client";
 
 interface UserInfoProps {
-	following: number;
-	followers: number;
-	infos: UserInfos;
+	createdAt: Date;
+	infos: UserInfos | null;
+	count: {
+		following: number;
+		followers: number;
+	}
 }
 
-const UserInfo = ({ following, followers, infos }: UserInfoProps) => {
-	const { bio, ...details } = infos;
+const UserInfo = ({createdAt, infos, count }: UserInfoProps) => {
+	const joinedIn = createdAt.toLocaleString("en-US", {
+		month: "long",
+		year: "numeric",
+	});
+	const {following, followers} = count;
 
 	return (
 		<div className="flex flex-col gap-1 text-sm lg:text-lg">
-			<p>{bio}</p>
-			<Details {...details} />
+			{infos?.bio && <p>{infos.bio}</p>}
+			<Details joinedIn={joinedIn} infos={infos} />
 			<Follows following={following} followers={followers} />
 		</div>
 	);

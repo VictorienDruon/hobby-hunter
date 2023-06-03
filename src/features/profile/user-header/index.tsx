@@ -1,11 +1,11 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Avatar from "./components/Avatar";
-import Link from "next/link";
 
 interface UserHeaderProps {
 	isOwner: boolean;
 	name: string;
-	image?: string;
+	image: string | null;
 }
 
 const UserHeader = ({ isOwner, name, image }: UserHeaderProps) => {

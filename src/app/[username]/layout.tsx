@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar/profile";
+import Navbar from "@/components/navbar/dashboard";
 
 interface ProfileLayoutProps {
 	children: React.ReactNode;
@@ -7,7 +7,7 @@ interface ProfileLayoutProps {
 const ProfileLayout = ({ children }: ProfileLayoutProps) => {
 	return (
 		<>
-			<Navbar />
+			<Navbar href="/" />
 			<div className="flex-1">{children}</div>
 		</>
 	);

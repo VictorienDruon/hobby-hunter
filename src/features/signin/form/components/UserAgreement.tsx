@@ -11,7 +11,7 @@ const UserAgreement = () => (
 			<Link href="/privacy-policy" className="underline">
 				Privacy Policy
 			</Link>
-			, and to receive periodic emails with updates.
+			.
 		</h3>
 	</div>
 );

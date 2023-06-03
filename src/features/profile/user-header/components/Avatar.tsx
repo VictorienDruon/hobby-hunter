@@ -1,5 +1,3 @@
-"use client";
-
 import {
 	Avatar as AvatarWrapper,
 	AvatarImage,
@@ -8,7 +6,7 @@ import {
 
 interface AvatarProps {
 	name: string;
-	image?: string;
+	image: string | null;
 }
 
 const getInitials = (name: string) => {
@@ -30,7 +28,7 @@ const getInitials = (name: string) => {
 const Avatar = ({ name, image }: AvatarProps) => {
 	return (
 		<AvatarWrapper className="h-20 w-20 border-4 border-background bg-background md:h-28 md:w-28 lg:h-36 lg:w-36">
-			<AvatarImage className="object-cover" src={image} />
+			<AvatarImage className="object-cover" src={image ?? undefined} />
 			<AvatarFallback className="select-none text-2xl tracking-widest md:text-3xl lg:text-4xl">
 				{getInitials(name)}
 			</AvatarFallback>

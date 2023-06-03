@@ -1,23 +1,13 @@
 import Link from "next/link";
 import { Icons } from "@/components/ui/icons";
-
-interface DetailProps {
-	children: React.ReactNode;
-}
+import { UserInfos } from "@prisma/client";
 
 interface DetailsProps {
-	job?: string;
-	location?: string;
-	website?: string;
-	twitter?: string;
-	github?: string;
 	joinedIn: string;
+	infos: UserInfos | null;
 }
 
-const Detail = ({ children }: DetailProps) => {
-	return <div className="mr-3 flex items-center gap-1">{children}</div>;
-};
-
+const DetailClassName = "mr-3 flex items-center gap-1";
 const IconClassName = "h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5";
 
 const getBaseURL = (url: string) => {
@@ -25,66 +15,59 @@ const getBaseURL = (url: string) => {
 	return urlObject.hostname;
 };
 
-const Details = ({
-	job,
-	location,
-	website,
-	twitter,
-	github,
-	joinedIn,
-}: DetailsProps) => {
+const Details = ({ joinedIn, infos }: DetailsProps) => {
 	return (
 		<div className="flex flex-wrap text-muted-foreground sm:max-w-[70%]">
-			{job && (
-				<Detail>
+			{infos?.job && (
+				<div className={DetailClassName}>
 					<Icons.briefcase className={IconClassName} />
 
-					<p>{job}</p>
-				</Detail>
+					<p>{infos.job}</p>
+				</div>
 			)}
-			{location && (
-				<Detail>
+			{infos?.location && (
+				<div className={DetailClassName}>
 					<Icons.pin className={IconClassName} />
 
-					<p>{location}</p>
-				</Detail>
+					<p>{infos.location}</p>
+				</div>
 			)}
-			{website && (
-				<Link href={website} target="_blank" rel="noreferrer">
-					<Detail>
+			{infos?.website && (
+				<Link href={infos.website} target="_blank" rel="noreferrer">
+					<div className={DetailClassName}>
 						<Icons.link className={IconClassName} />
-						<p>{getBaseURL(website)}</p>
-					</Detail>
+						<p>{getBaseURL(infos.website)}</p>
+					</div>
 				</Link>
 			)}
-			{twitter && (
+			{infos?.twitter && (
 				<Link
-					href={"https://twitter.com/" + twitter}
+					href={"https://twitter.com/" + infos.twitter}
 					target="_blank"
 					rel="noreferrer"
 				>
-					<Detail>
+					<div className={DetailClassName}>
 						<Icons.twitter className={IconClassName} />
-						<p>{twitter}</p>
-					</Detail>
+						<p>{infos.twitter}</p>
+					</div>
 				</Link>
 			)}
-			{github && (
+			{infos?.github && (
 				<Link
-					href={"https://github.com/" + github}
+					href={"https://github.com/" + infos.github}
 					target="_blank"
 					rel="noreferrer"
 				>
-					<Detail>
+					<div className={DetailClassName}>
 						<Icons.github className={IconClassName} />
-						<p>{github}</p>
-					</Detail>
+						<p>{infos.github}</p>
+					</div>
 				</Link>
 			)}
-			<Detail>
+			<div className={DetailClassName}>
 				<Icons.calendar className={IconClassName} />
 				Joined {joinedIn}
-			</Detail>
+			</div>
 		</div>
 	);
 };

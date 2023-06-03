@@ -1,27 +1,30 @@
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { prisma } from "@/lib";
 import Edit from "@/features/edit";
-import { User } from "@/types/User";
 
-const EditPage = () => {
-	const user: User = {
-		name: "John Doe",
-		username: "johndoe",
-		image: "https://avatars.githubusercontent.com/u/124599?v=4",
-		following: 4,
-		followers: 2,
-		infos: {
-			joinedIn: "May 2023",
-			job: "",
-			bio: "ouais c'est greg",
-			location: "Earth",
-			website: "https://lorem.ipsum.com",
-			twitter: "john_doe",
-			github: "JohnDoe",
-			theme: "pink",
+const getUserInfos = async (username: string) => {
+	const userInfos = await prisma.userInfos.findUnique({
+		where: {
+			username: username,
 		},
-		musics: [],
-	};
+	});
+	if (!userInfos) throw new Error("User not found");
+	return userInfos;
+};
 
-	return <Edit user={user} />;
+const EditPage = async () => {
+	const session = await getServerSession(authOptions);
+
+	if (!session?.user) {
+		redirect("/signin");
+	}
+
+	const username = session.user.name;
+	const userInfos = await getUserInfos(username);
+
+	return <Edit userInfos={userInfos} />;
 };
 
 export default EditPage;
