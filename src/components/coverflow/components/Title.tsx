@@ -5,8 +5,8 @@ const Title = ({ selectedAlbum }: { selectedAlbum: Album }) => {
 	const { name, artist } = selectedAlbum;
 
 	return (
-		<div className="absolute bottom-1 flex w-full justify-center">
-			<Label className="text-center text-xs font-normal md:text-sm lg:text-base">
+		<div className="absolute bottom-1 flex w-full justify-center px-2">
+			<Label className="truncate text-center text-xs font-normal md:text-sm lg:text-base">
 				{name}
 				<br />
 				{artist}

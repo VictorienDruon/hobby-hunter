@@ -23,7 +23,6 @@ interface ProfileProps {
 }
 
 const Profile = ({ isOwner, user }: ProfileProps) => {
-	console.log(user);
 	const { name, username, image, createdAt, infos, albums, _count } = user;
 
 	return (

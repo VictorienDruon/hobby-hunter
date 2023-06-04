@@ -53,8 +53,8 @@ const Coverflow = ({ isOwner, userAlbums }: CoverflowProps) => {
 					{selectedAlbum && <Title selectedAlbum={selectedAlbum} />}
 				</>
 			) : (
-				<div className="flex h-full w-full items-center justify-center">
-					<p className="font-normal">
+				<div className="flex h-full w-full items-center justify-center p-2">
+					<p className="font-normal text-center">
 						{isOwner
 							? `Add albums to your library and it will appear here`
 							: `This user have no album saved in his library`}

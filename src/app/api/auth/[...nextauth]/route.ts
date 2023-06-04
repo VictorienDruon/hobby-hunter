@@ -12,7 +12,7 @@ interface Item {
 
 const generateUsername = async (name: string) => {
 	const forbiddenUsernames = ["edit", "signin"];
-	const maxUsernameLength = 15;
+	const maxUsernameLength = 30;
 	const cleanName = name.replace(/[^a-zA-Z0-9]/g, "");
 	const truncatedName = cleanName.slice(0, maxUsernameLength);
 

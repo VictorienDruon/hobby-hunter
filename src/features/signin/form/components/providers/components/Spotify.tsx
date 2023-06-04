@@ -2,7 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { Icons } from "@/components/ui/icons";
 
 const Spotify = () => {
 	return (
@@ -15,16 +15,7 @@ const Spotify = () => {
 			}
 			className="flex w-full max-w-[350px] items-center bg-[#1DB954] hover:bg-[#159E41]"
 		>
-			<div className="relative m-5 h-full w-full">
-				<Image
-					src="/providers/spotify.png"
-					alt="spotify"
-					fill={true}
-					sizes="10vw"
-					className="object-contain"
-					draggable={false}
-				/>
-			</div>
+			<Icons.spotify className="h-full text-white" />
 		</Button>
 	);
 };
