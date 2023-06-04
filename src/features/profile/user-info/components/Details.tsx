@@ -3,7 +3,11 @@ import { Icons } from "@/components/ui/icons";
 import { UserInfos } from "@prisma/client";
 
 interface DetailsProps {
-	joinedIn: string;
+	createdAt: Date;
+	accounts: {
+		provider: string;
+		providerAccountId: string;
+	}[];
 	infos: UserInfos | null;
 }
 
@@ -15,7 +19,12 @@ const getBaseURL = (url: string) => {
 	return urlObject.hostname;
 };
 
-const Details = ({ joinedIn, infos }: DetailsProps) => {
+const Details = ({ createdAt, accounts, infos }: DetailsProps) => {
+	const joinedIn = createdAt.toLocaleString("en-US", {
+		month: "long",
+		year: "numeric",
+	});
+
 	return (
 		<div className="flex flex-wrap text-muted-foreground sm:max-w-[80%]">
 			{infos?.job && (
@@ -61,6 +70,21 @@ const Details = ({ joinedIn, infos }: DetailsProps) => {
 					<div className={DetailClassName}>
 						<Icons.github className={IconClassName} />
 						<p>{infos.github}</p>
+					</div>
+				</Link>
+			)}
+			{accounts[0].provider === "spotify" && (
+				<Link
+					href={
+						"https://open.spotify.com/user/" +
+						accounts[0].providerAccountId
+					}
+					target="_blank"
+					rel="noreferrer"
+				>
+					<div className={DetailClassName}>
+						<Icons.spotifyIcon className={IconClassName} />
+						<p>Spotify</p>
 					</div>
 				</Link>
 			)}

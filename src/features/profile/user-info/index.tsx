@@ -4,24 +4,24 @@ import { UserInfos } from "@prisma/client";
 
 interface UserInfoProps {
 	createdAt: Date;
+	accounts: {
+		provider: string;
+		providerAccountId: string;
+	}[];
 	infos: UserInfos | null;
 	count: {
 		following: number;
 		followers: number;
-	}
+	};
 }
 
-const UserInfo = ({createdAt, infos, count }: UserInfoProps) => {
-	const joinedIn = createdAt.toLocaleString("en-US", {
-		month: "long",
-		year: "numeric",
-	});
-	const {following, followers} = count;
+const UserInfo = ({ createdAt, accounts, infos, count }: UserInfoProps) => {
+	const { following, followers } = count;
 
 	return (
 		<div className="flex flex-col gap-1 text-sm lg:text-lg">
 			{infos?.bio && <p>{infos.bio}</p>}
-			<Details joinedIn={joinedIn} infos={infos} />
+			<Details createdAt={createdAt} accounts={accounts} infos={infos} />
 			<Follows following={following} followers={followers} />
 		</div>
 	);

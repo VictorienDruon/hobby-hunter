@@ -54,10 +54,10 @@ const Coverflow = ({ isOwner, userAlbums }: CoverflowProps) => {
 				</>
 			) : (
 				<div className="flex h-full w-full items-center justify-center p-2">
-					<p className="font-normal text-center">
+					<p className="text-center font-normal">
 						{isOwner
 							? `Add albums to your library and it will appear here`
-							: `This user have no album saved in his library`}
+							: `This user has no album saved in his library`}
 					</p>
 				</div>
 			)}

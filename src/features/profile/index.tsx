@@ -11,19 +11,32 @@ import { Theme } from "./banner/themes";
 interface ProfileProps {
 	isOwner: boolean;
 	user: User & {
+		accounts: {
+			provider: string;
+			providerAccountId: string;
+		}[];
 		infos: UserInfos;
+		albums: (UserAlbum & {
+			album: Album;
+		})[];
 		_count: {
 			followers: number;
 			following: number;
 		};
-		albums: (UserAlbum & {
-			album: Album;
-		})[];
 	};
 }
 
 const Profile = ({ isOwner, user }: ProfileProps) => {
-	const { name, username, image, createdAt, infos, albums, _count } = user;
+	const {
+		name,
+		username,
+		image,
+		createdAt,
+		accounts,
+		infos,
+		albums,
+		_count,
+	} = user;
 
 	return (
 		<>
@@ -34,6 +47,7 @@ const Profile = ({ isOwner, user }: ProfileProps) => {
 					<UserName name={name} username={username} />
 					<UserInfo
 						createdAt={createdAt}
+						accounts={accounts}
 						infos={infos}
 						count={_count}
 					/>
