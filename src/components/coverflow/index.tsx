@@ -4,53 +4,61 @@ import { RefObject, createRef } from "react";
 import useCoverflow from "@/hooks/useCoverflow";
 import Cover from "./components/Cover";
 import Title from "./components/Title";
-import Music from "@/types/Music";
+import { Album, UserAlbum } from "@prisma/client";
 
 interface CoverflowProps {
-	musics: Music[];
+	isOwner: boolean;
+	userAlbums: (UserAlbum & {
+		album: Album;
+	})[];
 }
 
 interface CoverRefs {
 	[key: string]: RefObject<HTMLDivElement>;
 }
 
-const Coverflow = ({ musics }: CoverflowProps) => {
+const Coverflow = ({ isOwner, userAlbums }: CoverflowProps) => {
 	const coverflowRef = createRef<HTMLDivElement>();
 	const coverRefs: CoverRefs = {};
-	const { handleCoverflowScroll, handleCoverClick, styles, selectedMusicId } =
+	const { handleCoverflowScroll, handleCoverClick, styles, selectedAlbumId } =
 		useCoverflow({
 			coverflowRef,
 			coverRefs,
 		});
-	const selectedMusic = musics.find((music) => music.id === selectedMusicId);
+	const albums = userAlbums.map((userAlbum) => userAlbum.album);
+	const selectedAlbum = albums.find((album) => album.id === selectedAlbumId);
 
 	return (
 		<div className="relative h-44 w-full max-w-[1200px] overflow-hidden rounded-3xl border-2 sm:h-52 md:h-60 lg:h-64">
-			{musics.length > 0 ? (
+			{albums.length > 0 ? (
 				<>
 					<div
 						ref={coverflowRef}
 						className="flex h-full overflow-x-scroll px-[50%] pt-5 scrollbar-hide"
 						onScroll={handleCoverflowScroll}
 					>
-						{musics.map((music, index) => {
-							coverRefs[music.id] = createRef();
+						{albums.map((album, index) => {
+							coverRefs[album.id] = createRef();
 							return (
 								<Cover
-									key={music.id}
-									ref={coverRefs[music.id]}
-									music={music}
+									key={album.id}
+									ref={coverRefs[album.id]}
+									album={album}
 									style={styles[index]}
 									onClick={handleCoverClick}
 								/>
 							);
 						})}
 					</div>
-					{selectedMusic && <Title selectedMusic={selectedMusic} />}
+					{selectedAlbum && <Title selectedAlbum={selectedAlbum} />}
 				</>
 			) : (
 				<div className="flex h-full w-full items-center justify-center">
-					<p className="font-normal">You have no music saved.</p>
+					<p className="font-normal">
+						{isOwner
+							? `Add albums to your library and it will appear here`
+							: `This user have no album saved in his library`}
+					</p>
 				</div>
 			)}
 		</div>

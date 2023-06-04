@@ -1,8 +1,8 @@
 import { Label } from "@/components/ui/label";
-import Music from "@/types/Music";
+import { Album } from "@prisma/client";
 
-const Title = ({ selectedMusic }: { selectedMusic: Music }) => {
-	const { name, artist } = selectedMusic;
+const Title = ({ selectedAlbum }: { selectedAlbum: Album }) => {
+	const { name, artist } = selectedAlbum;
 
 	return (
 		<div className="absolute bottom-1 flex w-full justify-center">

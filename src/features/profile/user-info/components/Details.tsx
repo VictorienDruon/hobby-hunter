@@ -17,7 +17,7 @@ const getBaseURL = (url: string) => {
 
 const Details = ({ joinedIn, infos }: DetailsProps) => {
 	return (
-		<div className="flex flex-wrap text-muted-foreground sm:max-w-[70%]">
+		<div className="flex flex-wrap text-muted-foreground sm:max-w-[80%]">
 			{infos?.job && (
 				<div className={DetailClassName}>
 					<Icons.briefcase className={IconClassName} />

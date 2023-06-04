@@ -5,22 +5,26 @@ import UserInfo from "./user-info";
 import { Separator } from "@/components/ui/separator";
 import Coverflow from "@/components/coverflow";
 import Settings from "./Settings";
-import { User, UserInfos } from "@prisma/client";
+import { Album, User, UserAlbum, UserInfos } from "@prisma/client";
 import { Theme } from "./banner/themes";
 
 interface ProfileProps {
 	isOwner: boolean;
 	user: User & {
-		infos: UserInfos | null;
+		infos: UserInfos;
 		_count: {
-			following: number;
 			followers: number;
+			following: number;
 		};
+		albums: (UserAlbum & {
+			album: Album;
+		})[];
 	};
 }
 
 const Profile = ({ isOwner, user }: ProfileProps) => {
-	const { name, username, image, createdAt, infos, _count } = user;
+	console.log(user);
+	const { name, username, image, createdAt, infos, albums, _count } = user;
 
 	return (
 		<>
@@ -37,7 +41,7 @@ const Profile = ({ isOwner, user }: ProfileProps) => {
 					<Separator className="my-4" />
 				</div>
 				<div className="flex w-full flex-col items-center gap-4 md:gap-6 lg:gap-8">
-					<Coverflow musics={[]} />
+					<Coverflow isOwner={isOwner} userAlbums={albums} />
 				</div>
 				{isOwner && <Settings />}
 			</main>

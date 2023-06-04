@@ -1,9 +1,9 @@
 import { forwardRef, CSSProperties, MouseEvent } from "react";
 import Image from "next/image";
-import Music from "@/types/Music";
+import { Album } from "@prisma/client";
 
 interface CoverProps {
-	music: Music;
+	album: Album;
 	style: CSSProperties;
 	onClick: (event: MouseEvent<HTMLDivElement>) => void;
 }
@@ -12,10 +12,15 @@ const Cover = forwardRef<HTMLDivElement, CoverProps>(function Cover(
 	props,
 	ref
 ) {
-	const { music, style, onClick } = props;
-	const { name, artist, image } = music;
+	const { album, style, onClick } = props;
+	const { name, artist, image } = album;
 	return (
-		<div ref={ref} className="relative aspect-square h-[75%]" style={style} onClick={onClick}>
+		<div
+			ref={ref}
+			className="relative aspect-square h-[75%]"
+			style={style}
+			onClick={onClick}
+		>
 			<Image
 				src={image}
 				alt={`${name} by ${artist}`}

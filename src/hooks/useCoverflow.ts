@@ -17,7 +17,7 @@ interface UseCoverflowArgs {
 
 const useCoverflow = (args: UseCoverflowArgs) => {
 	const [styles, setStyles] = useState<CSSProperties[]>([]);
-	const [selectedMusicId, setSelectedMusicId] = useState("");
+	const [selectedAlbumId, setSelectedAlbumId] = useState("");
 	const { coverflowRef, coverRefs } = args;
 
 	const handleCoverflowScroll = () => {
@@ -25,7 +25,7 @@ const useCoverflow = (args: UseCoverflowArgs) => {
 			const coverflowWidth = coverflowRef.current.offsetWidth;
 			const { left: coverflowLeft } =
 				coverflowRef.current.getBoundingClientRect();
-			let closestMusicId = null;
+			let closestAlbumId = null;
 			let closestDistance = Infinity;
 			const newStyles = Object.keys(coverRefs).map((id) => {
 				const coverRef = coverRefs[id].current;
@@ -37,7 +37,7 @@ const useCoverflow = (args: UseCoverflowArgs) => {
 					const position = (50 * (left + right)) / coverflowWidth;
 					const distanceFromCenter = Math.abs(position - 50);
 					if (distanceFromCenter < closestDistance) {
-						closestMusicId = id;
+						closestAlbumId = id;
 						closestDistance = distanceFromCenter;
 					}
 					const rotateY =
@@ -53,8 +53,8 @@ const useCoverflow = (args: UseCoverflowArgs) => {
 					return {};
 				}
 			});
-			if (closestMusicId !== null) {
-				setSelectedMusicId(closestMusicId);
+			if (closestAlbumId !== null) {
+				setSelectedAlbumId(closestAlbumId);
 			}
 			setStyles(newStyles);
 		}
@@ -81,7 +81,7 @@ const useCoverflow = (args: UseCoverflowArgs) => {
 		handleCoverflowScroll,
 		handleCoverClick,
 		styles,
-		selectedMusicId,
+		selectedAlbumId,
 	};
 };
 

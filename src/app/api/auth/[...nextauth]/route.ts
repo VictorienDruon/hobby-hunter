@@ -2,6 +2,13 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import SpotifyProvider, { SpotifyProfile } from "next-auth/providers/spotify";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/lib";
+import { Album as SpotifyAlbum } from "spotify-types";
+import { Album } from "@prisma/client";
+
+interface Item {
+	added_at: Date;
+	album: SpotifyAlbum;
+}
 
 const generateUsername = async (name: string) => {
 	const forbiddenUsernames = ["edit", "signin"];
@@ -67,6 +74,64 @@ export const authOptions: NextAuthOptions = {
 	],
 	secret: process.env.NEXTAUTH_SECRET,
 	pages: { signIn: "/signin" },
+	events: {
+		async signIn({ user, account }) {
+			if (account) {
+				const data = await fetch(
+					"https://api.spotify.com/v1/me/albums",
+					{
+						method: "GET",
+						headers: {
+							Authorization: `Bearer ${account.access_token}`,
+						},
+					}
+				);
+				const res = await data.json();
+
+				const albums: Album[] = res.items.map((item: Item) => {
+					const { album } = item;
+					const artists = album.artists.map((artist) => artist.name);
+					const artist = artists.join(", ");
+					return {
+						id: album.external_ids.upc,
+						name: album.name,
+						artist: artist,
+						image: album.images[0].url,
+					};
+				});
+
+				const existingAlbums = await prisma.album.findMany({
+					where: {
+						id: {
+							in: albums.map((album) => album.id),
+						},
+					},
+					select: { id: true },
+				});
+				const existingIds = existingAlbums.map(
+					(album: { id: string }) => album.id
+				);
+				const newAlbums = albums.filter(
+					(album) => !existingIds.includes(album.id)
+				);
+
+				await prisma.album.createMany({
+					data: newAlbums,
+				});
+
+				await prisma.userAlbum.deleteMany({
+					where: { username: user.username },
+				});
+
+				await prisma.userAlbum.createMany({
+					data: albums.map((album) => ({
+						username: user.username,
+						albumId: album.id,
+					})),
+				});
+			}
+		},
+	},
 	callbacks: {
 		async session({ session, user }) {
 			session.user = {
@@ -77,25 +142,6 @@ export const authOptions: NextAuthOptions = {
 			return session;
 		},
 	},
-	// events: {
-	// 	async signIn({ user, account }) {
-	// 		if (account) {
-	// 			const data = await fetch(
-	// 				"https://api.spotify.com/v1/me/albums",
-	// 				{
-	// 					method: "GET",
-	// 					headers: {
-	// 						Authorization: `Bearer ${account.accessToken}`,
-	// 					},
-	// 				}
-	// 			);
-	// 			const res = await data.json();
-	// 			console.log(res);
-	// 		} else {
-	// 			throw new Error("No account.");
-	// 		}
-	// 	},
-	// },
 };
 
 const handler = NextAuth(authOptions);

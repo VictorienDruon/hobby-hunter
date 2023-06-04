@@ -67,21 +67,21 @@ CREATE TABLE "user_infos" (
 );
 
 -- CreateTable
-CREATE TABLE "musics" (
+CREATE TABLE "albums" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "artist" TEXT NOT NULL,
     "image" TEXT NOT NULL,
 
-    CONSTRAINT "musics_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "albums_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "users_musics" (
-    "user_id" TEXT NOT NULL,
-    "music_id" TEXT NOT NULL,
+CREATE TABLE "users_albums" (
+    "username" TEXT NOT NULL,
+    "album_id" TEXT NOT NULL,
 
-    CONSTRAINT "users_musics_pkey" PRIMARY KEY ("user_id","music_id")
+    CONSTRAINT "users_albums_pkey" PRIMARY KEY ("username","album_id")
 );
 
 -- CreateTable
@@ -110,6 +110,9 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 CREATE UNIQUE INDEX "user_infos_username_key" ON "user_infos"("username");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "albums_id_key" ON "albums"("id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "verificationtokens_token_key" ON "verificationtokens"("token");
 
 -- CreateIndex
@@ -129,3 +132,9 @@ ALTER TABLE "user_follows" ADD CONSTRAINT "user_follows_follower_id_fkey" FOREIG
 
 -- AddForeignKey
 ALTER TABLE "user_follows" ADD CONSTRAINT "user_follows_following_id_fkey" FOREIGN KEY ("following_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "users_albums" ADD CONSTRAINT "users_albums_username_fkey" FOREIGN KEY ("username") REFERENCES "users"("username") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "users_albums" ADD CONSTRAINT "users_albums_album_id_fkey" FOREIGN KEY ("album_id") REFERENCES "albums"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

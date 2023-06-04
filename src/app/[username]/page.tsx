@@ -17,6 +17,11 @@ const getUser = async (username: string) => {
 				select: { followers: true, following: true },
 			},
 			infos: true,
+			albums: {
+				include: {
+					album: true,
+				},
+			},
 		},
 	});
 	if (!user) throw new Error("User not found");
