@@ -9,6 +9,7 @@ import {
 	Link,
 	Quote,
 	Briefcase,
+	Loader2,
 	type Icon as LucideIcon,
 } from "lucide-react";
 
@@ -24,6 +25,7 @@ export const Icons = {
 	link: Link,
 	twitter: Twitter,
 	quote: Quote,
+	spinner: Loader2,
 	logo: (props: LucideProps) => (
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
 			<path

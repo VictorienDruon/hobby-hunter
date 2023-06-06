@@ -4,7 +4,7 @@ import UserName from "./UserName";
 import UserInfo from "./user-info";
 import { Separator } from "@/components/ui/separator";
 import Coverflow from "@/components/coverflow";
-import Settings from "./Settings";
+import SignOut from "./SignOut";
 import { Album, User, UserAlbum, UserInfos } from "@prisma/client";
 import { Theme } from "./banner/themes";
 
@@ -56,7 +56,7 @@ const Profile = ({ isOwner, user }: ProfileProps) => {
 				<div className="flex w-full flex-col items-center gap-4 md:gap-6 lg:gap-8">
 					<Coverflow isOwner={isOwner} userAlbums={albums} />
 				</div>
-				{isOwner && <Settings />}
+				{isOwner && <SignOut />}
 			</main>
 		</>
 	);

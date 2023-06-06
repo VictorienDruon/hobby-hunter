@@ -13,12 +13,20 @@ export const POST = async (request: NextRequest) => {
 	}
 
 	const data = await request.json();
-	const update = await prisma.userInfos.update({
-		where: {
-			username: username,
-		},
-		data: data,
-	});
-	revalidatePath("/" + username);
-	return NextResponse.json({ revalidated: true, now: Date.now() });
+
+	try {
+		await prisma.userInfos.update({
+			where: {
+				username: username,
+			},
+			data: data,
+		});
+		revalidatePath("/" + username);
+		return NextResponse.json({ revalidated: true, now: Date.now() });
+	} catch {
+		return NextResponse.json(
+			{ error: "Invalid username" },
+			{ status: 401 }
+		);
+	}
 };

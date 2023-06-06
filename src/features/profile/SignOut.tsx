@@ -3,18 +3,11 @@
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 
-const Settings = () => {
+const SignOut = () => {
 	return (
-		<div className="flex justify-end gap-4">
+		<div className="flex justify-end">
 			<Button
 				variant="outline"
-				size="sm"
-				className="text-xs md:p-5 lg:text-sm"
-			>
-				Delete Account
-			</Button>
-			<Button
-				variant="default"
 				size="sm"
 				onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
 				className="text-xs md:p-5 lg:text-sm"
@@ -25,4 +18,4 @@ const Settings = () => {
 	);
 };
 
-export default Settings;
+export default SignOut;

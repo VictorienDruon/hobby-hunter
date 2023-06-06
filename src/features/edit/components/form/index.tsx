@@ -29,14 +29,14 @@ const EditForm = ({ userInfos }: { userInfos: UserInfos }) => {
 	});
 
 	const onSubmit = async (data: EditFormData) => {
-		const update = await fetch("/api/update", {
+		const updateUser = await fetch("/api/update", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(data),
 		});
-		const res = await update.json();
+		const res = await updateUser.json();
 		if (res.error) {
 			toast({
 				variant: "destructive",
