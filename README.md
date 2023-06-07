@@ -1,8 +1,8 @@
-#Hobby Hunter
+# Hobby Hunter
 
 This is a Next.js project that allows users to create a profile with Spotify integration. Users can authenticate with their Spotify account, and the application fetches and displays their saved albums in a coverflow layout similar to the iPod.
 
-##Technologies used
+## Technologies used
 
 -   Next.js
 -   Vercel
@@ -13,5 +13,5 @@ This is a Next.js project that allows users to create a profile with Spotify int
 -   Zod
 -   Shadcn UI
 
-##Licence
-Licensed under the MIT license.
+## Licence
+Licensed under the [MIT License](https://github.com/VictorienDruon/Hobby-Hunter/blob/main/LICENSE).
