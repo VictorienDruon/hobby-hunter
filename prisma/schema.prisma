@@ -53,8 +53,6 @@ model User {
   updatedAt     DateTime      @updatedAt @map("updated_at")
   accounts      Account[]
   sessions      Session[]
-  followers     UserFollows[] @relation("follower")
-  following     UserFollows[] @relation("following")
   infos         UserInfos     @relation(fields: [infosId], references: [id])
   albums        UserAlbum[]
 
@@ -64,8 +62,6 @@ model User {
 model UserFollows {
   followerId  String @map("follower_id")
   followingId String @map("following_id")
-  follower    User   @relation("follower", fields: [followerId], references: [id])
-  following   User   @relation("following", fields: [followingId], references: [id])
 
   @@id([followerId, followingId])
   @@map("user_follows")

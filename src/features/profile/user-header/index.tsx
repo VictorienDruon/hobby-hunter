@@ -12,7 +12,7 @@ const UserHeader = ({ isOwner, name, image }: UserHeaderProps) => {
 	return (
 		<div className="flex w-full items-end justify-between">
 			<Avatar name={name} image={image} />
-			{isOwner ? (
+			{isOwner && (
 				<Link href="/edit">
 					<Button
 						variant="outline"
@@ -22,14 +22,6 @@ const UserHeader = ({ isOwner, name, image }: UserHeaderProps) => {
 						Edit
 					</Button>
 				</Link>
-			) : (
-				<Button
-					variant="default"
-					className="rounded-3xl px-4 md:px-8 lg:px-12"
-					size="sm"
-				>
-					Follow
-				</Button>
 			)}
 		</div>
 	);

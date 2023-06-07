@@ -1,23 +1,12 @@
-import Image from "next/image";
-
 const Illustration = () => {
 	return (
-		<div className="hidden md:block">
-			{/* <Image
-				src="/examples/authentication-light.png"
-				width={1280}
-				height={843}
-				alt="Authentication"
-				className="block dark:hidden"
-			/>
-			<Image
-				src="/examples/authentication-dark.png"
-				width={1280}
-				height={843}
-				alt="Authentication"
-				className="hidden dark:block"
-			/> */}
-		</div>
+		<div
+			className="hidden bg-contain md:block"
+			style={{
+				backgroundImage:
+					"url(https://images.unsplash.com/photo-1590069261209-f8e9b8642343?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1376&q=80)",
+			}}
+		/>
 	);
 };
 

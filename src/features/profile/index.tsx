@@ -19,24 +19,11 @@ interface ProfileProps {
 		albums: (UserAlbum & {
 			album: Album;
 		})[];
-		_count: {
-			followers: number;
-			following: number;
-		};
 	};
 }
 
 const Profile = ({ isOwner, user }: ProfileProps) => {
-	const {
-		name,
-		username,
-		image,
-		createdAt,
-		accounts,
-		infos,
-		albums,
-		_count,
-	} = user;
+	const { name, username, image, createdAt, accounts, infos, albums } = user;
 
 	return (
 		<>
@@ -49,7 +36,6 @@ const Profile = ({ isOwner, user }: ProfileProps) => {
 						createdAt={createdAt}
 						accounts={accounts}
 						infos={infos}
-						count={_count}
 					/>
 					<Separator className="my-4" />
 				</div>

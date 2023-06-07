@@ -25,8 +25,6 @@ export const GET = async () => {
 			include: {
 				accounts: true,
 				sessions: true,
-				followers: true,
-				following: true,
 				albums: true,
 			},
 		});

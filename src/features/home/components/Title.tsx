@@ -7,7 +7,7 @@ const Title = () => {
 				with style.
 			</h1>
 			<p className="max-w-[700px] text-center text-sm lg:text-lg text-muted-foreground">
-				Discover the music and books people love, find new favorites,
+				Discover the music and books (coming soon!) people love, find new favorites,
 				and connect with fellow enthusiasts all around the world.
 			</p>
 		</div>

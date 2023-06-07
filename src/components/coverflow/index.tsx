@@ -7,7 +7,7 @@ import Title from "./components/Title";
 import { Album, UserAlbum } from "@prisma/client";
 
 interface CoverflowProps {
-	isOwner: boolean;
+	isOwner?: boolean;
 	userAlbums: (UserAlbum & {
 		album: Album;
 	})[];
@@ -17,7 +17,7 @@ interface CoverRefs {
 	[key: string]: RefObject<HTMLDivElement>;
 }
 
-const Coverflow = ({ isOwner, userAlbums }: CoverflowProps) => {
+const Coverflow = ({ isOwner = false, userAlbums }: CoverflowProps) => {
 	const coverflowRef = createRef<HTMLDivElement>();
 	const coverRefs: CoverRefs = {};
 	const { handleCoverflowScroll, handleCoverClick, styles, selectedAlbumId } =
