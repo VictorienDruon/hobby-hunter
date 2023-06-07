@@ -11,7 +11,9 @@ This is a Next.js project that allows users to create a profile with Spotify int
 -   NextAuth.js
 -   React Hook Form
 -   Zod
+-   Tailwind CSS
 -   Shadcn UI
 
 ## Licence
+
 Licensed under the [MIT License](https://github.com/VictorienDruon/Hobby-Hunter/blob/main/LICENSE).
