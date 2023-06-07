@@ -44,14 +44,6 @@ CREATE TABLE "users" (
 );
 
 -- CreateTable
-CREATE TABLE "user_follows" (
-    "follower_id" TEXT NOT NULL,
-    "following_id" TEXT NOT NULL,
-
-    CONSTRAINT "user_follows_pkey" PRIMARY KEY ("follower_id","following_id")
-);
-
--- CreateTable
 CREATE TABLE "user_infos" (
     "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
@@ -128,13 +120,7 @@ ALTER TABLE "sessions" ADD CONSTRAINT "sessions_user_id_fkey" FOREIGN KEY ("user
 ALTER TABLE "users" ADD CONSTRAINT "users_infos_id_fkey" FOREIGN KEY ("infos_id") REFERENCES "user_infos"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "user_follows" ADD CONSTRAINT "user_follows_follower_id_fkey" FOREIGN KEY ("follower_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "user_follows" ADD CONSTRAINT "user_follows_following_id_fkey" FOREIGN KEY ("following_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "users_albums" ADD CONSTRAINT "users_albums_album_id_fkey" FOREIGN KEY ("album_id") REFERENCES "albums"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "users_albums" ADD CONSTRAINT "users_albums_username_fkey" FOREIGN KEY ("username") REFERENCES "users"("username") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "users_albums" ADD CONSTRAINT "users_albums_album_id_fkey" FOREIGN KEY ("album_id") REFERENCES "albums"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

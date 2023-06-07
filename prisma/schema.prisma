@@ -42,29 +42,21 @@ model Session {
 }
 
 model User {
-  id            String        @id @default(cuid())
-  infosId       String        @unique @map("infos_id")
+  id            String      @id @default(cuid())
+  infosId       String      @unique @map("infos_id")
   name          String
-  username      String        @unique
-  email         String        @unique
-  emailVerified DateTime?     @map("email_verified")
+  username      String      @unique
+  email         String      @unique
+  emailVerified DateTime?   @map("email_verified")
   image         String?
-  createdAt     DateTime      @default(now()) @map("created_at")
-  updatedAt     DateTime      @updatedAt @map("updated_at")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
   accounts      Account[]
   sessions      Session[]
-  infos         UserInfos     @relation(fields: [infosId], references: [id])
+  infos         UserInfos   @relation(fields: [infosId], references: [id])
   albums        UserAlbum[]
 
   @@map("users")
-}
-
-model UserFollows {
-  followerId  String @map("follower_id")
-  followingId String @map("following_id")
-
-  @@id([followerId, followingId])
-  @@map("user_follows")
 }
 
 model UserInfos {
@@ -95,8 +87,8 @@ model Album {
 model UserAlbum {
   username String
   albumId  String @map("album_id")
-  user     User   @relation(fields: [username], references: [username])
   album    Album  @relation(fields: [albumId], references: [id])
+  user     User   @relation(fields: [username], references: [username])
 
   @@id([username, albumId])
   @@map("users_albums")
